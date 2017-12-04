@@ -84,7 +84,7 @@ def about(*ignored):
     This utility aims to make it easy for a user to manage a virtual file system.
     It is entirely written in Python 3 and is released under the Apache License 2.0
     To see the full text of the license (in your browser), use --license
-    The source code can be found at [insert github].
+    The source code can be found at github.com/alisonstreete/cfs-manager
 
     CFS_Manager was written (and is maintained) by Alison Streete.
     Do you have any questions, or have you encountered a bug?
