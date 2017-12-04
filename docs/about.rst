@@ -6,7 +6,10 @@ Release Versions
 ================
 
 **1.0.0** *Initial release*
+
 1.0.1 *Bug fix (see commit)*
+
+----
 
 *This section will be updated as new releases come out*
 
