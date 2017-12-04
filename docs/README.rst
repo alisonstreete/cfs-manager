@@ -4,6 +4,8 @@ Read Me
 
 CFS_Manager aims to make cloud storage easy to manage, even when you're dealing with multiple providers. It creates a unified API for upload/download/modification of files on multiple platforms. The unified API is mostly internal to the script, as the main user interface is the console script (cli.py).
 
+This initial release supports simultaneous integration with up to three storage providers: Google, Dropbox, and pCloud. In addition, there is a clear and documented process for adding support for new providers, so a rapid expansion in supported platforms should be expected. Once setup, you should be able to treat all your storage providers as if they were a unified whole, with more space than any one would have individually.
+
 Setup And Installation
 ======================
 
