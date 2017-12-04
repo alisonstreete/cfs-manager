@@ -27,7 +27,7 @@ This utility aims at OS-independence and should work on Windows, Mac, and Linux 
 About
 =====
 
-CFS_Manager uses the Apache 2.0 license and is `publicly hosted on github <http://[insert github]/>`_.
+CFS_Manager uses the Apache 2.0 license and is `publicly hosted on github <http://https://github.com/alisonstreete/cfs-manager/>`_.
 It is developed by Alison Streete, but welcomes anyone interested in contributing. (You could see your name on this line!)
 
 Questions? Bugs? Kudos? Confusion? Want to buy the developer a drink? Email her at alison.streete {@} gmail.com.
