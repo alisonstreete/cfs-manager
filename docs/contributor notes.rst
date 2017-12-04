@@ -40,9 +40,8 @@ If you're a fan/user/developer of a provider and really want support for it, and
 Storage Provider Integration Process
 -------------------------------------
 If you add a new provider, there are a few places where updates will need to happen to fully integrate them:
-	
-#. You'll need to write the in-project wrapper. The current style of the project involves writing an internal wrapper to talk to external ones.
-Any new wrappers written should losely comply with the conventions of the other ones in terms of function names and what results they achieve.
+
+#. You'll need to write the in-project wrapper. The current style of the project involves writing an internal wrapper to talk to external ones. Any new wrappers written should losely comply with the conventions of the other ones in terms of function names and what results they achieve.
 
 #. You'll need to write a new class in file_systems.py. This class must inherit from CloudFileSystem and include the same methods. What those methods do is stated in their doc strings in the CloudFileSystem class definition. The consistency is necessary, as it's part of the internal API. Those methods will be called, by name, by manager.py, which is a high-level abstraction over all the cloud accounts and must treat them interchangeably.
 
