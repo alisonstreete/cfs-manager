@@ -84,7 +84,7 @@ def about(*ignored):
     This utility aims to make it easy for a user to manage a virtual file system.
     It is entirely written in Python 3 and is released under the Apache License 2.0
     To see the full text of the license (in your browser), use --license
-    The source code can be found at github.com/alisonstreete/cfs-manager
+    The source code can be found at https://github.com/alisonstreete/cfs-manager
 
     CFS_Manager was written (and is maintained) by Alison Streete.
     Do you have any questions, or have you encountered a bug?
@@ -94,7 +94,17 @@ def about(*ignored):
 @helper
 def license(*ignored):
     """Opens the default browser to display the Apache License on Apache's website."""
-    webbrowser.open('http://www.apache.org/licenses/LICENSE-2.0', new=2, autoraise=True)
+    webbrowser.open('https://www.apache.org/licenses/LICENSE-2.0', new=2, autoraise=True)
+
+@helper
+def github(*ignored):
+    """Opens the default browser to display CFS_Manager's Github repo."""
+    webbrowser.open('https://github.com/alisonstreete/cfs-manager', new=2, autoraise=True)
+
+@helper
+def documentation(*ignored):
+    """Opens the default browser to display the index page of CFS_Manager's documentation."""
+    webbrowser.open('https://cfs-manager.readthedocs.io/en/latest/', new=2, autoraise=True)
 
 @helper
 def quit_doc(fs):

@@ -4,9 +4,13 @@ import gdrive_wrapper as gdrive
 import pcloud_wrapper as pcloud
 import dropbox_wrapper as dbox
 
-with open(os.path.join(os.getcwd(), 'managed.txt'), 'r') as f:
-    dirs = f.readlines()
-    dirs = [x.strip() for x in dirs]
+try:
+    with open('managed.txt', 'r') as f:
+        dirs = f.readlines()
+        dirs = [x.strip() for x in dirs]        
+        dirs = [x for x in dirs if x]
+except FileNotFoundError:
+    dirs = ''
 
 def file_size_display(size, precision):
     """Displays human-readable file information, to [precision] decimal places"""

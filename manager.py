@@ -75,10 +75,13 @@ def convert_files(fs):
         converted = convert_dbox(fs.files)
     return converted
 
-
-with open(os.path.join(os.getcwd(), 'managed.txt'), 'r') as f:
-    dirs = f.readlines()
-    dirs = [x.strip() for x in dirs]
+try:
+    with open('managed.txt', 'r') as f:
+        dirs = f.readlines()
+        dirs = [x.strip() for x in dirs]        
+        dirs = [x for x in dirs if x]
+except FileNotFoundError:
+    dirs = ''
 
 def get_all_files(file_systems):
     all_files = []

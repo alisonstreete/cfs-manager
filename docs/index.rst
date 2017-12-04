@@ -18,9 +18,7 @@ Welcome to CFS_Manager's documentation!
 
 
 
-Indices and tables
-==================
+Tools
+=====
 
-* :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`

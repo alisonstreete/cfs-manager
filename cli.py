@@ -6,13 +6,13 @@ from help_functions import *  # * import because help_functions is explicitly de
 from manager import Main_FS
 
 with open('system_config.txt', 'r') as config:  #Acquires email from saved file
-        content = config.readlines()
-        for line in content:
-            if 'Downloads' in line:
-                download_directory = line.split(':::')[1].strip()
-                break
-        else:
-            download_directory = None
+    content = config.readlines()
+    for line in content:
+        if 'Downloads' in line:
+            download_directory = line.split(':::')[1].strip()
+            break
+    else:
+        download_directory = None
 
 @helper
 def free_space(fs):
@@ -161,6 +161,8 @@ commands = {
     #The functions below come from help_functions
     '--about' : about,
     '--license' : license,
+    '--github' : github,
+    '--docs' : documentation,
     '--quit': quit_doc,
     '-q' : quit_doc,
     '--help' : help_switch,

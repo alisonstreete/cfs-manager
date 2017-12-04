@@ -6,10 +6,13 @@ def main():
     in_managed = False
     currdir = str(os.getcwd())
 
-    with open(os.path.join(location, 'managed.txt'), 'r') as managed:
-        dirs = managed.read()
-        if currdir in dirs:
-            in_managed = True
+    try:
+        with open(os.path.join(location, 'managed.txt'), 'r') as managed:
+            dirs = managed.read()
+            if currdir in dirs:
+                in_managed = True
+    except FileNotFoundError:
+        pass
 
     if not in_managed:
         with open(os.path.join(location, 'managed.txt'), 'a') as managed:
