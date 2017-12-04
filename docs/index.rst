@@ -6,7 +6,8 @@
 Welcome to CFS_Manager's documentation!
 =======================================
 
-**Contents**
+Contents
+--------
 
 .. toctree::
     :maxdepth: 2
@@ -19,6 +20,6 @@ Welcome to CFS_Manager's documentation!
 
 
 Tools
-=====
+-----
 
 * :ref:`search`
