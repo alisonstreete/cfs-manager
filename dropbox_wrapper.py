@@ -7,12 +7,14 @@ from zipper import zip_all, extract
 CHUNK_SIZE = 2**22  #i.e, 4MiB
 
 def update_config(content, save, auth_code):
+    """Updates the config file with the new authorization code"""
     new = save.split(':::')[0] + ' ::: ' + auth_code + '\n'
     lines = [new if x==save else x for x in content]
     with open('system_config.txt', 'w') as config:
         config.write(''.join(lines))
 
 def start():
+    """Initializes the Dropbox object that acts as a filesystem abstraction"""
     with open('system_config.txt', 'r') as config:  #Acquires auth_code from saved file
         content = config.readlines()
         for line in content:
@@ -34,14 +36,8 @@ def start():
             pass
     return Dropbox(oauth_result.access_token)
 
-    #sys_name = str(platform.system()) + str(platform.release())
-    #session = {'app' : 'cfs_manager', 'sys_name' : sys_name, 'time' : str(datetime.datetime.now())}
-    #auth = DropboxOAuth2Flow('dd3vt2v1p0tey6b', '27183ha8su8lggd', 'localhost:4400', session, 'csrf_token')
-    #url = auth.start()
-    #print(url)
-    #return Dropbox('evYXUsUM57AAAAAAAAAACkTHLrT9go6C-nBiYunPvuOO7-U5dPR571h7Bae1QIXe')
-
 def get_user_info(dbx):
+    """Acquires the user's account info and converts to a dictionary"""
     client = dbx.users_get_current_account()
     space = dbx.users_get_space_usage()
 
@@ -57,7 +53,7 @@ def get_user_info(dbx):
 def get_all_files(dbx):
     return dbx.files_list_folder('').entries
 
-def inspect_file(file):    
+def inspect_file(file):
     dict_file = {
         "title" : file.name,
         "id" : file.id,
@@ -75,6 +71,7 @@ def get_a_files_info(all_files, field, value):
         print("No file with "+ field +" of "+ value)
 
 def upload_file(dbx, LOCALFILE):
+    """Uploads a local file to Dropbox in chunks <=4MiB each"""
     with open(LOCALFILE, 'rb') as f:
         BACKUPPATH = '/' + os.path.split(LOCALFILE)[1]
         file_size = os.path.getsize(LOCALFILE)
@@ -97,6 +94,7 @@ def upload_archives(dbx, currdir):
         upload_file(dbx, f.filename)
 
 def download_file(dbx, filename):
+    """Downloads a file (including zipped directories) from Dropbox into cfs-m's swap folder"""
     metadata, response = dbx.files_download("/"+filename)
     file_binaries = response.content
 

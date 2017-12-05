@@ -5,14 +5,19 @@ os.chdir(os.path.split(os.path.abspath(__file__))[0])  #Set the working dir to t
 from help_functions import *  # * import because help_functions is explicitly designed not to overload the namespace
 from manager import Main_FS
 
-with open('system_config.txt', 'r') as config:  #Acquires email from saved file
-    content = config.readlines()
-    for line in content:
-        if 'Downloads' in line:
-            download_directory = line.split(':::')[1].strip()
-            break
-    else:
-        download_directory = None
+try:
+    with open('system_config.txt', 'r') as config:  #Acquires email from saved file
+        content = config.readlines()
+        for line in content:
+            if 'Downloads' in line:
+                download_directory = line.split(':::')[1].strip()
+                break
+        else:
+            download_directory = None
+except FileNotFoundError as e:
+    print(e)
+    print("If you don't have a system_config.txt file yet, please run configuration.py")
+    raise FileNotFoundError
 
 @helper
 def free_space(fs):

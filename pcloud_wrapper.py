@@ -7,6 +7,7 @@ folder_dict = {
     }
 
 def start():
+    """Initializes the PyCloud object that acts as a filesystem abstraction"""
     with open('system_config.txt', 'r') as config:  #Acquires email from saved file
         content = config.readlines()
         for line in content:
@@ -59,6 +60,7 @@ def get_used_space(fs, folder_id=None):
     return total_size
 
 def download_file(fs, filename):
+    """Downloads a file (including zipped directories) from pCloud into cfs-m's swap folder"""
     file_path = folder_dict['path'] + '/' + filename
     file_descriptor = fs.file_open(**{'flags' : '0', 'path' : file_path})
     file_descriptor['count'] = str(2**40)  #Says to download upto a TB worth of the file, which will hopefully never be too low a limit.

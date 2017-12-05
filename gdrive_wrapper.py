@@ -5,6 +5,7 @@ from pydrive.drive import GoogleDriveFile as GDFile
 from zipper import zip_all, extract
 
 def start():
+    """Initializes the Google Drive object that acts as a filesystem abstraction"""
     gauth = GoogleAuth()
     gauth.LoadCredentialsFile("gdrive_credentials.txt")
     # Try to load saved client credentials
@@ -21,6 +22,7 @@ def get_drive_data(drive):
     return drive.GetAbout()
 
 def get_folder_id(drive):
+    """Determines the folder id of cfs-m's root folder"""
     folder_id = None
     file_list = drive.ListFile({'q': "'root' in parents and trashed=false"}).GetList()
     for f in file_list:
@@ -61,7 +63,7 @@ def remove_file(file):
         print("No file", file, "exists")
 
 def download_file(file, filename):
-    #file is a GDFile object, not an id
+    """Downloads a file (including zipped directories) from GDrive into cfs-m's swap folder"""
     os.makedirs(os.path.join(os.getcwd(), "file_swap"), exist_ok=True)
     destination = os.path.join("file_swap", filename)
     try:

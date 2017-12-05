@@ -5,6 +5,7 @@ from file_systems import file_size_display
 fs_classes = [['pCloud', PCloud_FS], ['Google Drive', GDrive_FS], ['Dropbox', DBox_FS]]
 
 def start():
+    """Initializes all selected file system classes and returns list of objects to Main_FS object"""
     fs_chosen = []  #Only have in the chosen list the FSs that were accepted during configuration
     with open('system_config.txt', 'r') as config:
         con = config.read()
@@ -19,6 +20,7 @@ def start():
     return fs_list
 
 def convert_gdrive(current_files):
+    """Converts the information in GDrive file metadata to a standardized format"""
     converted_files = []
     for f in current_files:
         new = {
@@ -106,6 +108,7 @@ def get_folder_size(directory):
 
 
 class Main_FS(CloudFileSystem):
+    """The top-level file system abstraction which utilizes all other FSs"""
     def __init__(self):
         file_systems = start()
         files = get_all_files(file_systems)
@@ -139,6 +142,9 @@ class Main_FS(CloudFileSystem):
         self.file_system_info['available space'] = available_space
 
     def hard_refresh(self):
+        """Forces all lower-level filesystems to refresh their file lists
+
+        As opposed to refreshing files from info already stored in the other file systems, as is default"""
         for sys in self.fs:
             sys.refresh_files()
         self.refresh_files()
@@ -167,6 +173,7 @@ class Main_FS(CloudFileSystem):
         self.refresh_files()
 
     def get_cloud(self, value, field='filename'):
+        """Determines which cloud a given file was uploaded to"""
         for file in self.files:
             if str(file[field]) == str(value):
                 choice = file
