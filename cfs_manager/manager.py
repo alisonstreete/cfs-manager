@@ -176,8 +176,8 @@ class Main_FS(CloudFileSystem):
         """Autocompletes a partial filename using the list of known files"""
         for f in self.files:
             if f['filename'].startswith(filebeginning):
-                print("(Completed as '"+ f['filename'].strip('.zip') +"')")
-                return f['filename'].strip('.zip')
+                print("(Completed as '"+ f['filename'].replace('.zip', '') +"')")
+                return f['filename'].replace('.zip', '')
 
     def get_cloud(self, value, field='filename'):
         """Determines which cloud a given file was uploaded to"""
