@@ -6,17 +6,14 @@ Project General
 ===============
 
 This project follows `Semantic Versioning <http://semver.org/>`_.
-As it is currently in 1.x, you can be confident that console commands that work now will keep working in other 1.x versions.
-As the internal API is not currently intended for out-of-app use, there may be breaking changes in minor versions.
-However, the internal API should remain stable through patch versions, and future releases that expose this API should fully stabilise it.
+As it is currently in 1.x, you can be confident that console commands that work now will keep working in other 1.x versions. As the internal API is not currently intended for out-of-app use, there may be breaking changes in minor versions. However, the internal API should remain stable through patch versions, and future releases that expose this API should fully stabilise it.
 	
 Comment Policy
 ==============
 
 The general approach taken is to err on the side of too much commentary.
 The goal is to make it easy to know exactly what's happening upon skimming a plain-English description.
-Hopefully, one should not have to read the entire codebase to know what they need to change to improve their workflow or make a pull request.
-If you benefit from the current level of descriptiveness, please pass it on by including comments in your pull requests!
+Hopefully, one should not have to read the entire codebase to know what they need to change to improve their workflow or make a pull request. If you benefit from the current level of descriptiveness, please pass it on by including comments in your commits!
 
 Direct contributions to the documentation or the UI text are considered as valuable as code contribution.
 If there was anything you had to figure out on your own that you wish had been in the standard docs, please write it up!
