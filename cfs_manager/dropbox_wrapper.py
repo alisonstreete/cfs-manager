@@ -25,7 +25,7 @@ def start():
     try:
         oauth_result = auth_flow.finish(auth_code)
     except Exception:
-        auth_flow = DropboxOAuth2FlowNoRedirect('dd3vt2v1p0tey6b', '27183ha8su8lggd')
+        auth_flow = DropboxOAuth2FlowNoRedirect(APP_KEY, APP_SECRET)
         authorize_url = auth_flow.start()
         webbrowser.open(authorize_url)
         auth_code = input("Enter the authorization code here: ").strip()
