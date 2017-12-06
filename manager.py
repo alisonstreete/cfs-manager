@@ -172,6 +172,13 @@ class Main_FS(CloudFileSystem):
             print("You may be able to upload this by breaking it into sub-directories.")
         self.refresh_files()
 
+    def name_complete(self, filebeginning):
+        """Autocompletes a partial filename using the list of known files"""
+        for f in self.files:
+            if f['filename'].startswith(filebeginning):
+                print("(Completed as '"+ f['filename'].strip('.zip') +"')")
+                return f['filename'].strip('.zip')
+
     def get_cloud(self, value, field='filename'):
         """Determines which cloud a given file was uploaded to"""
         for file in self.files:

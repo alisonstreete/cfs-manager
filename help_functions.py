@@ -70,7 +70,9 @@ def help_file():
     To learn about CFS_Manager, use '--about'. To quit this interface, use '--quit' or '-q'.
     """)
 
+@helper
 def help_switch(fs, args):
+    """Displays the help file for the cfs_manager command line"""
     if args:  #This is true if /any/ argument is passed after --help/-h; not just -v
         help_file()
     else:

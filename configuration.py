@@ -1,9 +1,10 @@
-import os, webbrowser
+import os, sys, webbrowser
 from dropbox import DropboxOAuth2FlowNoRedirect
 from pydrive.auth import GoogleAuth
-from manager import fs_classes
 
+sys.path.insert(0, os.path.split(os.path.abspath(__file__))[0])
 os.chdir(os.path.split(os.path.abspath(__file__))[0])
+from manager import fs_classes
 
 def filesystem_list(fs_classes):
     print("\nSecondly, the system needs to know which cloud storage providers you use. \nDo you use...")
@@ -15,7 +16,7 @@ def filesystem_list(fs_classes):
             chosen.append(fs[0])
             print(fs[0], "added.")
         else:
-            print(fs[0], "not added.")
+            print(fs[0], "cancelled.")
     return chosen
 
 def pcloud_setup(config):
@@ -38,7 +39,7 @@ def dbox_setup(config):
     """)
     cont = input("To continue, enter any letter:  ")
     if cont:
-        auth_flow = DropboxOAuth2FlowNoRedirect(APP_KEY, APP_SECRET)
+        auth_flow = DropboxOAuth2FlowNoRedirect('dd3vt2v1p0tey6b', '27183ha8su8lggd')
         authorize_url = auth_flow.start()
         webbrowser.open(authorize_url)
         auth_code = input("Enter the authorization code here: ").strip().strip('"').strip("'").strip()
@@ -66,7 +67,7 @@ def setup_switch(fs, config):
         gdrive_setup(config)
 
 def main():
-    welcome = "Welcome to CFS_Manager's setup and configuration!\n"
+    welcome = "\nWelcome to CFS_Manager's setup and configuration!\n"
     welcome += "There are just a few things you need to do to make sure your virtual filesystem is set up correctly.\n"
     print(welcome)
     download_query = "Firstly, where would you like to store files you download by default?\n"
@@ -80,6 +81,7 @@ def main():
         for fs in fs_list:
             setup_switch(fs, config)
     print("\nThank you for setting up CFS_Manager. You can now access your files using the 'cfsm' system command.")
+    print("If this is your first time using CFS_Manager, try entering 'help' once the command line is open.")
 
 if __name__ == "__main__":
     main()

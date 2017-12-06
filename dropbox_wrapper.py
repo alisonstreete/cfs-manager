@@ -4,7 +4,7 @@ from dropbox.files import WriteMode
 from dropbox import DropboxOAuth2FlowNoRedirect
 from zipper import zip_all, extract
 
-CHUNK_SIZE = 2**22  #i.e, 4MiB
+CHUNK_SIZE = 2**25  #i.e, 32MiB
 
 def update_config(content, save, auth_code):
     """Updates the config file with the new authorization code"""
@@ -25,7 +25,7 @@ def start():
     try:
         oauth_result = auth_flow.finish(auth_code)
     except Exception:
-        auth_flow = DropboxOAuth2FlowNoRedirect(APP_KEY, APP_SECRET)
+        auth_flow = DropboxOAuth2FlowNoRedirect('dd3vt2v1p0tey6b', '27183ha8su8lggd')
         authorize_url = auth_flow.start()
         webbrowser.open(authorize_url)
         auth_code = input("Enter the authorization code here: ").strip()
@@ -79,8 +79,8 @@ def upload_file(dbx, LOCALFILE):
             dbx.files_upload(f.read(), BACKUPPATH, mode=WriteMode('overwrite'))
         else:
             upload_session_start_result = dbx.files_upload_session_start(f.read(CHUNK_SIZE))
-            cursor = dropbox.files.UploadSessionCursor(session_id=upload_session_start_result.session_id, offset=f.tell())
-            commit = dropbox.files.CommitInfo(path=BACKUPPATH)
+            cursor = dbx.files.UploadSessionCursor(session_id=upload_session_start_result.session_id, offset=f.tell())
+            commit = dbx.files.CommitInfo(path=BACKUPPATH)
             while f.tell() < file_size:
                 if ((file_size - f.tell()) <= CHUNK_SIZE):
                     dbx.files_upload_session_finish(f.read(CHUNK_SIZE), cursor, commit)

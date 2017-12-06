@@ -50,17 +50,22 @@ def list_all(fs):
         print("Your cloud file system is currently empty. To upload files, use the --upload command.\n")
 
 @helper
-def inspect_file(fs, filename):
+def inspect_file(fs, filename, option=None):
     """Displays a list of everything known about the selected file
 
     Takes one argument
     -->The name of the file being inspected"""
-
+    if (option == '--complete') or (option == '-c'):
+        filename = fs.name_complete(filename)
     info = fs.inspect_file(filename)
-    for statement in info:
-        if 'original file' not in statement:  #Avoids printing the stored copy of the original file
-            print(statement)
-    print()
+    try:
+        for statement in info:
+            if 'original file' not in statement:  #Avoids printing the stored copy of the original file
+                print(statement)
+    except FileNotFoundError:
+        print("You may want to check your spelling, or the file you named may not currently exist.\n")
+    else:
+        print()
 
 @helper
 def refresh(fs):
@@ -105,13 +110,18 @@ def upload_all(fs):
     shutil.rmtree(os.path.join(os.getcwd(), 'archives'))
 
 @helper
-def download(fs, filename, destination=download_directory):
+def download(fs, filename, option=None, destination=download_directory):
     """Downloads a item (whether file or stored directory) from the cloud
 
     Takes two arguments (one optional):
     -->The name of the file being downloaded
     -->The local directory being downloaded to (on Windows, this defaults to Downloads)"""
+    if option and not option.startswith('-'):
+        destination, option = option, None
+        #In case the user gave a destination but not an option, the value will be reassigned to reflect this.
     if destination:
+        if (option == '--complete') or (option == '-c'):
+            filename = fs.name_complete(filename)
         try:
             fs.download_file(filename, destination)
         except FileNotFoundError:
@@ -175,26 +185,37 @@ commands = {
     'help' : help_switch
     }
 
+modifiers = {
+#Lists all the options to modify commands
+    '--help / -h' : "Displays the a description of the command\n",
+    '--verbose / -v' : "(After '--help' or '--commands') this will display a more detailed description\n",
+    '--complete / -c' : """(After a partial filename) this will autocomplete to a matching filename in the system
+    Warning: This will use the first match found, so only use when the file is unambiguous\n""",
+}
+
 def list_commands_summary(fs):
     """Lists the first line in each command's docstring, plus the help summary."""
-    print()
+    print("The console commands are:\n")
     for cmd in commands:
-        if cmd == '--help':
-            print (cmd, ": ", end='')
-            commands[cmd](fs, [])  #if the cmd is '--help', '--help' shouldn't be an argument
-        elif cmd[:2] == '--':
+        if cmd[:2] == '--':
             print(cmd, ": ", end='')
             commands[cmd](fs, ['--help'])  #--help passed in a list to cope with commands using *args to split inputs
+    print("Modifiers that can alter normal commands are:\n")
+    for mod in modifiers:
+        print(mod, ":", modifiers[mod])
 
 def list_commands_long(fs):
     """Lists the full docstrings of every command, plus the full help file."""
-    print()
+    print("The console commands are:\n")
     for cmd in commands:
         if cmd[:2] == '--':
             print(cmd, ": ", end='')
             commands[cmd](fs, ['--help', '--verbose'])  #--help and --verbose passed as list to cope w/ commands splitting inputs w/ *args
         else:
             print(cmd, ": Same as above ^\n")
+    print("Modifiers that can alter normal commands are:\n")
+    for mod in modifiers:
+        print(mod, ":", modifiers[mod])
 
 def evaluator(fs, args):
     """Parses commands by determining which function in the dict they correspond to and evaluating that one."""
@@ -224,7 +245,7 @@ def find_text(s):
     return s, text
 
 def main():
-    """The main body of the CLI"""
+    """The main operational loop of the CLI"""
     fs = Main_FS()
     print()
     while True:
@@ -236,7 +257,7 @@ def main():
             list_commands_summary(fs)
         elif (cmd == '--commands --verbose') or (cmd == '--commands -v'):
             list_commands_long(fs)
-        if 'xyzzy' in cmd.lower():
+        elif 'xyzzy' in cmd.lower():
             print("Nothing happens")
 
         else:
@@ -244,7 +265,7 @@ def main():
             cmd = cmd.split()
             cmd += text  #list form of cmd extended with text
             evaluator(fs, cmd)
-    print("Thank you for using CFS_Manager. Goodbye!")
+    print("Thank you for using CFS_Manager. Goodbye!\n")
 
 if __name__ == "__main__":
     main()
