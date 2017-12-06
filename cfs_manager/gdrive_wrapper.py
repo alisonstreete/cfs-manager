@@ -30,7 +30,7 @@ def get_folder_id(drive):
             folder_id = f['id']
             return folder_id
     else:
-        folder = drive.CreateFile({'title': 'Cloud Manager',
+        folder = drive.CreateFile({'title': 'CFS_Manager',
         "mimeType": "application/vnd.google-apps.folder"})
         folder.Upload()
         return folder['id']

@@ -2,20 +2,27 @@
 Change Log
 **********
 
-This is where all inter-version changes in the CFS_Manager project will be noted. All changes noted here will be in summary form. If you're reading this on *readthedocs*, you can do a full-text search to get more details.
+This is where all inter-version changes in the CFS_Manager project will be noted. All changes noted here will be in summary form. If you're reading this on *readthedocs*, you can do a full-text search to get more details. This project follows `Semantic Versioning <http://semver.org/>`_.
 
 1.x Series
 ==========
+
+**[Unreleased]**
+----------------
+
+*Bugfixes:*
+
+* Google Drive stops making a bunch of incorrectly named folders that it can't find.
 
 1.1.0.1
 -------
 
 *Bugfixes:*
 
-* Setuptools incorrectly packaged the files which were uploaded to PyPI, so they had to be re-uploaded. This should really not be considered a distinct version from 1.1.0, and is only a thing because of an upload error.
+* Setuptools incorrectly packaged the files which were uploaded to PyPI, so they had to be re-uploaded immediately. This should really not be considered a distinct version from 1.1.0, and is only a thing because of an upload error.
 
-1.1.0
------
+**1.1.0** - *2017-12-5*
+-----------------------
 
 *Bugfixes:*
 
@@ -37,14 +44,14 @@ This is where all inter-version changes in the CFS_Manager project will be noted
 
 * Added a list of command options to the CLI command listing.
 
-1.0.1
------
+**1.0.1** - *2017-12-4*
+-----------------------
 
 *Bugfixes:*
 
 * CLI tools are functional even if there's no managed.txt yet.
 
-1.0.0
------
+**1.0.0** - *2017-12-3*
+-----------------------
 
 (Nothing - initial release)
