@@ -71,7 +71,7 @@ def help_file():
     """)
 
 @helper
-def help_switch(fs, args):
+def help_switch(fs, args=None):
     """Displays the help file for the cfs_manager command line"""
     if args:  #This is true if /any/ argument is passed after --help/-h; not just -v
         help_file()

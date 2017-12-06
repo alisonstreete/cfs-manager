@@ -190,7 +190,7 @@ modifiers = {
     '--help / -h' : "Displays the a description of the command\n",
     '--verbose / -v' : "(After '--help' or '--commands') this will display a more detailed description\n",
     '--complete / -c' : """(After a partial filename) this will autocomplete to a matching filename in the system
-    Warning: This will use the first match found, so only use when the file is unambiguous\n""",
+  Warning: This will use the first match found, so only use when the file is unambiguous\n""",
 }
 
 def list_commands_summary(fs):
