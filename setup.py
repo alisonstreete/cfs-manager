@@ -1,11 +1,11 @@
 from setuptools import setup
 
 def readme():
-    with open('[package root]/docs/README.rst') as f:
+    with open('./docs/README.rst') as f:
         return f.read()
 
 setup(name="CFS_Manager",
-    version='1.1.0a',
+    version='1.1.0',
     description="A virtual filesystem for accessing storage on multiple cloud services.",
     long_description=readme(),
     classifiers=[
