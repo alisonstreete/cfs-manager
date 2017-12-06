@@ -6,8 +6,7 @@
 Welcome to CFS_Manager's documentation!
 =======================================
 
-Contents
---------
+**Contents**
 
 .. toctree::
     :maxdepth: 2
@@ -16,10 +15,11 @@ Contents
     about
     contributor notes
     license
+    changelog
 
 
 
 Tools
------
+=====
 
 * :ref:`search`
