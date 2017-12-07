@@ -80,7 +80,7 @@ def help_switch(fs, args=None):
 
 @helper
 def about(*ignored):
-    """Displays CFS_Manager's about page"""
+    """Displays a summary of the CFS_Manager's description"""
     print("""
     This is the command line interface for the Cloud File-System Manager (CFS_Manager).
     This utility aims to make it easy for a user to manage a virtual file system.

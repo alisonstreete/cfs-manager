@@ -1,5 +1,5 @@
 from os import scandir
-import manager
+from cfs_manager import manager
 
 def test_clean():
 	"""Provides a clean filesystem to test and tests remove_all()"""

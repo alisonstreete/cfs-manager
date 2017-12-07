@@ -16,8 +16,8 @@ try:
             download_directory = None
 except FileNotFoundError as e:
     print(e)
-    print("If you don't have a system_config.txt file yet, please run configuration.py")
-    raise FileNotFoundError
+    print("If you don't have a system_config.txt file yet, please run `cfs-config`")
+    raise SystemExit(0)
 
 @helper
 def free_space(fs):
@@ -119,6 +119,7 @@ def download(fs, filename, option=None, destination=download_directory):
     if option and not option.startswith('-'):
         destination, option = option, None
         #In case the user gave a destination but not an option, the value will be reassigned to reflect this.
+    print("name:", filename, "destination:", destination)
     if destination:
         if (option == '--complete') or (option == '-c'):
             filename = fs.name_complete(filename)
@@ -235,14 +236,17 @@ def find_text(s):
     """Groups multi-word arguments by returning substrings that fall between quotes."""
     patterns = [re.compile("(?<=')(.*?)(?=')"), re.compile('(?<=")(.*?)(?=")')]
     text = []
-    for pat in patterns:
+    for pat in patterns:  #Checks for both single and double quotes
         matches = re.findall(pat, s)
-        for i in range(0, len(matches), 2):
-            text.append(matches[i])
-            s = s.replace(matches[i], "")
-    s = s.replace("''", "")
-    s = s.replace('""', '')
-    return s, text
+        if matches:
+            text.append(s.split(matches[0])[0].strip('"').strip("'"))
+            text.append(matches[0])
+            text.append(s.split(matches[0])[1].strip('"').strip("'"))
+            #This only works if there's only one quoted segment
+            print(text)
+            return text
+    else:
+        return s
 
 def main():
     """The main operational loop of the CLI"""
@@ -261,9 +265,12 @@ def main():
             print("Nothing happens")
 
         else:
-            cmd, text = find_text(cmd)  #text returned as a list, with cmd still str
-            cmd = cmd.split()
-            cmd += text  #list form of cmd extended with text
+            cmd = find_text(cmd)
+            if type(cmd) is list:
+                cmd = cmd[0].split()+[cmd[1]]+cmd[2].split()
+                print(cmd)
+            else:
+                cmd = cmd.split()
             evaluator(fs, cmd)
     print("Thank you for using CFS_Manager. Goodbye!\n")
 
