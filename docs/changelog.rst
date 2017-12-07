@@ -7,24 +7,32 @@ This is where all inter-version changes in the CFS_Manager project will be noted
 1.x Series
 ==========
 
-**[Unreleased]**
+[Unreleased]
 ----------------
 
-*Bugfixes:*
+*Bugfixes*
 
 * Google Drive stops making a bunch of incorrectly named folders that it can't find.
+
+*UI Improvements*
+
+* More useful error message when cfs-config hasn't been run.
+
+*Added*
+
+* A unit testing module.
 
 1.1.0.1
 -------
 
-*Bugfixes:*
+*Bugfixes*
 
 * Setuptools incorrectly packaged the files which were uploaded to PyPI, so they had to be re-uploaded immediately. This should really not be considered a distinct version from 1.1.0, and is only a thing because of an upload error.
 
 **1.1.0** - *2017-12-5*
 -----------------------
 
-*Bugfixes:*
+*Bugfixes*
 
 * The documentation correctly ships with the PyPI package.
 
@@ -32,7 +40,7 @@ This is where all inter-version changes in the CFS_Manager project will be noted
 
 * Large Dropbox uploads no longer cause crashes.
 
-*New Functionality:*
+*New Functionality*
 
 * Added filename autocompletion option.
 
@@ -40,14 +48,14 @@ This is where all inter-version changes in the CFS_Manager project will be noted
 
 * Enabled the 'cfs-watch' system command to add the current directory to the set of managed directories.
 
-*User Interface Improvements:*
+*UI Improvements*
 
 * Added a list of command options to the CLI command listing.
 
 **1.0.1** - *2017-12-4*
 -----------------------
 
-*Bugfixes:*
+*Bugfixes*
 
 * CLI tools are functional even if there's no managed.txt yet.
 
