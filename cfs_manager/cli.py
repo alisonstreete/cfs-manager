@@ -243,7 +243,6 @@ def find_text(s):
             text.append(matches[0])
             text.append(s.split(matches[0])[1].strip('"').strip("'"))
             #This only works if there's only one quoted segment
-            print(text)
             return text
     else:
         return s
@@ -268,7 +267,6 @@ def main():
             cmd = find_text(cmd)
             if type(cmd) is list:
                 cmd = cmd[0].split()+[cmd[1]]+cmd[2].split()
-                print(cmd)
             else:
                 cmd = cmd.split()
             evaluator(fs, cmd)
