@@ -44,6 +44,8 @@ If you add a new provider, there are a few places where updates will need to hap
 
 #. You'll need to import this class to manager.py, and add it to the list 'fs_classes'. This will be how the manager instantiates these filesystems.
 
+#. Create a function to convert the file metadata returned by the specific API to the general metadata format used by the manager.
+
 #. Depending on what the access credentials needed by the file system are, you should add a setup step to the configuration.py. Ideally, users should save as much reusable info as possible (passwords excepted). Configuration imports fs_classes from manager.py, so your addition will automatically show up in the list of file systems for users to approve. However, you'll still need a step to write its name to the system_configuration.txt file.
 	
 Once you've completed those four steps, the newly-added filesystem should work just as well as all the others.

@@ -46,6 +46,8 @@ Goals
 
 * Allow users to choose storage order
 
+* Make files that are dropped into a CFS_Manager folder managable
+
 
 *Medium-term Enhancements*
 --------------------------
