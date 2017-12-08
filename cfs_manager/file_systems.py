@@ -3,6 +3,7 @@ import os, shutil
 import gdrive_wrapper as gdrive
 import pcloud_wrapper as pcloud
 import dropbox_wrapper as dbox
+import box_wrapper as _box
 
 try:
     with open('managed.txt', 'r') as f:
@@ -11,15 +12,6 @@ try:
         dirs = [x for x in dirs if x]
 except FileNotFoundError:
     dirs = ''
-
-def file_size_display(size, precision):
-    """Displays human-readable file information, to [precision] decimal places"""
-    suffixes=['B','KiB','MiB','GiB','TiB', 'PiB']
-    suffixIndex = 0
-    while size > 1024 and suffixIndex < 5:
-        suffixIndex += 1
-        size = size/1024.0
-    return "%.*f%s"%(precision, size, suffixes[suffixIndex])
 
 def download_cleanup(decorated):
     """Cleans up after downloads by putting them in the right directory and removing unneeded files/directories
@@ -39,10 +31,11 @@ def download_cleanup(decorated):
         return new_file_location
     return wrapper
 
+
 class CloudFileSystem:
     """The framework within which all defined filesystems fall, to ensure a consistent API
 
-    This class is never intended to be instantiated.
+    This class should never be instantiated directly.
     Other classes should simply inherit from it to ensure identical attributes.
     Contributers should use this as the template for any new cloud FSs added.
     This solves the problem of all the SDKs used having radically different calls and returns."""
@@ -106,11 +99,51 @@ class CloudFileSystem:
         """Iteratively performs file-removal on all files in the file system"""
         pass
 
+class _Box_FS(CloudFileSystem):
+    def __init__(self):
+        fs = _box.start()
+        root = _box.get_root(fs)  #object representing the 'CFS_Manager' folder itself
+        cfs_size = None  #_Box doesn't let you check the size of a file (the attribute described in the docs doesn't exist)
+        files = _box.get_all_files(root)
+        file_system_info = _box.get_user(fs)
+
+        CloudFileSystem.__init__(self, 'Box', fs, root, cfs_size, files, file_system_info)
+
+    def refresh_files(self):
+        self.files = _box.get_all_files(self.root)
+        self.file_system_info = _box.get_user(self.fs)
+
+    def get_quota(self):
+        return self.file_system_info.space_amount
+
+    def get_available(self):
+        return int(self.file_system_info.space_amount) - int(self.file_system_info.space_used)
+
+    def upload_archives(self, directory):
+        _box.upload_archives(self.root, directory)
+        self.refresh_files()
+
+    @download_cleanup
+    def download_file(self, filename, destination_directory):
+        abs_file_path = _box.download_file(self.files, filename)
+        new_file_location = os.path.join(destination_directory, filename.replace('.zip', ''))
+        return abs_file_path, new_file_location
+
+    def inspect_file(self, filename):
+        pass
+
+    def remove_file(self, filename):
+        _box.delete_file(self.files, filename)
+        self.refresh_files()
+
+    def remove_all(self):
+        _box.delete_all(self.files)
+
 class DBox_FS(CloudFileSystem):
     def __init__(self):
         fs = dbox.start()
         root_id = ''
-        #The Dropbox app is setup to treat it's own folder as root
+        #The Dropbox app is setup to treat the 'CFS_Manager' folder as root
         files = dbox.get_all_files(fs)
         cfs_size = dbox.get_used_space(files)
         file_system_info = dbox.get_user_info(fs)
