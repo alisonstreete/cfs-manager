@@ -9,6 +9,7 @@ Welcome to CFS_Manager's documentation!
     README
     about
     contributor notes
+    direction
     license
     changelog
 

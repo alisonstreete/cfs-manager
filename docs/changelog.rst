@@ -7,8 +7,8 @@ This is where all inter-version changes in the CFS_Manager project will be noted
 1.x Series
 ==========
 
-**1.1.1**
-----------------
+**1.1.1** - *2017-12-7*
+-----------------------
 
 *Bugfixes*
 
