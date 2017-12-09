@@ -1,6 +1,8 @@
 import os, sys, webbrowser
 from dropbox import DropboxOAuth2FlowNoRedirect
 from pydrive.auth import GoogleAuth
+from boxsdk import OAuth2
+from box_wrapper import split_tokens
 
 sys.path.insert(0, os.path.split(os.path.abspath(__file__))[0])
 os.chdir(os.path.split(os.path.abspath(__file__))[0])
@@ -21,7 +23,7 @@ def filesystem_list(fs_classes):
 
 def pcloud_setup(config):
     print("""
-    In version 1.0 of CFS_Manager, OAuth for pCloud is not yet supported.
+    In the current version of CFS_Manager, OAuth for pCloud is not yet supported.
     As such, if you wish to use pCloud, you will need to enter your pCloud password each time you connect.
     (CFS_Manager will never store your password or transmit it to any party other than pCloud itself.)
     However, this setup process will save your email, so you won't need to enter it in future.
@@ -58,6 +60,22 @@ def gdrive_setup(config):
         gauth.SaveCredentialsFile("gdrive_credentials.txt")
         config.write('Google Drive\n')
 
+def _box_setup(config):
+    print("""
+    Authorizing CFS_Manager to access your Box account will require your webbrowser.
+    An authorization page will be opened on Box's website.
+    After allowing access for your account, you'll be redirected to a page that fails to load.
+    You'll need to copy the url of that page into this window to finish the authorization.
+    """)
+    cont = input("To continue, enter any letter:  ")
+    if cont:
+        oauth = OAuth2(client_id=CLIENT_ID, client_secret=CLIENT_SECRET)
+        auth_url, csrf_token = oauth.get_authorization_url('http://localhost:2772')
+        webbrowser.open(auth_url)
+        csrf_token, auth_code = split_tokens()
+        access_token, refresh_token = oauth.authenticate(auth_code)
+        config.write('Box (no drop) ::: '+ access_token +'<:>'+ refresh_token +'\n')
+
 def setup_switch(fs, config):
     if fs == 'pCloud':
         pcloud_setup(config)
@@ -65,6 +83,8 @@ def setup_switch(fs, config):
         dbox_setup(config)
     elif fs == 'Google Drive':
         gdrive_setup(config)
+    elif fs == 'Box (no drop)':
+        _box_setup(config)
 
 def main():
     welcome = "\nWelcome to CFS_Manager's setup and configuration!\n"

@@ -78,7 +78,7 @@ def convert_box(current_files):
             'original name' : None,
             'size' : 0,  #information not returned via Box SDK (wtf)
             'trashed' : False,
-            'notes' : 'File size displayed is inaccurate due to problems using the Box API'
+            'notes' : 'File size displayed is inaccurate due to problems using the Box API',
             'original file' : f
         }
         converted_files.append(new)

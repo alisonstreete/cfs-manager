@@ -36,8 +36,8 @@ def start():
     """Returns the client object that allows for filesystem access"""
     token_list, content, save = get_tokens_from_file()
     oauth = OAuth2(
-        client_id='njpho6pdex32qwdp5bgvv2gchter0rdy',
-        client_secret='YppmebR7prUxoHhjRogVIBcLSgBAw3sw',
+        client_id=CLIENT_ID,
+        client_secret=CLIENT_SECRET,
         access_token= token_list[0],
         refresh_token= token_list[1],
     )
