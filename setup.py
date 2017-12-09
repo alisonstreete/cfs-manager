@@ -5,7 +5,7 @@ def readme():
         return f.read()
 
 setup(name="CFS_Manager",
-    version='1.1.1',
+    version='1.2.0',
     description="A virtual filesystem for accessing storage on multiple cloud services.",
     long_description=readme(),
     classifiers=[
@@ -29,6 +29,7 @@ setup(name="CFS_Manager",
         'dropbox>=8.5',
         'pcloud==1.0a4',
         'pydrive>=1.3',
+        'boxsdk>=1.5,<2.0'
         ],
     entry_points='''
       [console_scripts]
