@@ -7,7 +7,7 @@ Project General
 
 This project follows `Semantic Versioning <http://semver.org/>`_.
 As it is currently in 1.x, you can be confident that console commands that work now will keep working in other 1.x versions. As the internal API is not currently intended for out-of-app use, there may be breaking changes in minor versions. However, the internal API should remain stable through patch versions, and future releases that expose this API should fully stabilise it.
-	
+    
 Comment Policy
 ==============
 
@@ -27,7 +27,7 @@ If you'd like to build integration for the bare REST API into this project, plea
 
 When adding an externally-sourced SDK to the dependency tree, check the license! It has to be compatible with imports from an Apache 2.0 project.
 Preferred licenses for linked SDKs include the Apache, MIT, BSD, and ISC. (The LGPL is also compatible, but full GPL is not.)
-	
+    
 If you'd like to suggest another storage provider to integrate, but don't want to write the code, go ahead.
 However, if Alison is the one writing the code, she'll prioritise providers based on how simple the integration seems.
 Providers with up-to-date SDKs and readable documentation go to the top of the stack.
@@ -47,5 +47,5 @@ If you add a new provider, there are a few places where updates will need to hap
 #. Create a function to convert the file metadata returned by the specific API to the general metadata format used by the manager.
 
 #. Depending on what the access credentials needed by the file system are, you should add a setup step to the configuration.py. Ideally, users should save as much reusable info as possible (passwords excepted). Configuration imports fs_classes from manager.py, so your addition will automatically show up in the list of file systems for users to approve. However, you'll still need a step to write its name to the system_configuration.txt file.
-	
-Once you've completed those four steps, the newly-added filesystem should work just as well as all the others.
+    
+Once you've completed those five steps, the newly-added filesystem should work just as well as all the others.

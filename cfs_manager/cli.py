@@ -111,7 +111,7 @@ def upload_all(fs):
 
 @helper
 def download(fs, filename, option=None, destination=download_directory):
-    """Downloads a item (whether file or stored directory) from the cloud
+    """Downloads a single item (whether file or stored directory) from the cloud
 
     Takes two arguments (one optional):
     -->The name of the file being downloaded
@@ -119,7 +119,6 @@ def download(fs, filename, option=None, destination=download_directory):
     if option and not option.startswith('-'):
         destination, option = option, None
         #In case the user gave a destination but not an option, the value will be reassigned to reflect this.
-    print("name:", filename, "destination:", destination)
     if destination:
         if (option == '--complete') or (option == '-c'):
             filename = fs.name_complete(filename)

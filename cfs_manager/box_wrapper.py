@@ -1,5 +1,5 @@
 import sys, os, webbrowser
-from boxsdk import OAuth2, Client
+from boxsdk import OAuth2, Client, exception
 from zipper import zip_all, extract
 
 def split_tokens():
@@ -22,7 +22,7 @@ def get_tokens_from_file():
     with open('system_config.txt', 'r') as config:  #Acquires refresh_code from saved file
         content = config.readlines()
         for line in content:
-            if '_Box' in line:
+            if 'Box (no drop)' in line:
                 save = line
                 break
         else:
@@ -36,8 +36,8 @@ def start():
     """Returns the client object that allows for filesystem access"""
     token_list, content, save = get_tokens_from_file()
     oauth = OAuth2(
-        client_id= CLIENT_ID,
-        client_secret= CLIENT_SECRET,
+        client_id='njpho6pdex32qwdp5bgvv2gchter0rdy',
+        client_secret='YppmebR7prUxoHhjRogVIBcLSgBAw3sw',
         access_token= token_list[0],
         refresh_token= token_list[1],
     )
@@ -77,7 +77,7 @@ def get_root(client, recurse=True):
 def get_user(client):
     return client.user(user_id='me').get()
 
-def get_all_files(root):
+def get_all_files(client, root):
     return client.folder(folder_id=str(root.id)).get_items(limit=1024, offset=0)  #Will miss items if there are >2^10 files
 
 def get_file(files, filename):
@@ -88,7 +88,10 @@ def get_file(files, filename):
         print('No file of that name found')
 
 def upload_file(root, filepath):
-    root.upload(filepath, os.path.split(filepath)[1])  #Crashes if file of the same name is in folder
+    try:
+        root.upload(filepath, os.path.split(filepath)[1])  #Crashes if file of the same name is in folder
+    except exception.BoxAPIException:
+        print("File of this name already exists.")
 
 def upload_archives(root, currdir):
     files = zip_all(currdir)

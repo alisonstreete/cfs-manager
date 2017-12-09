@@ -102,15 +102,15 @@ class CloudFileSystem:
 class _Box_FS(CloudFileSystem):
     def __init__(self):
         fs = _box.start()
-        root = _box.get_root(fs)  #object representing the 'CFS_Manager' folder itself
+        root_id = _box.get_root(fs)  #object representing the 'CFS_Manager' folder itself; not just id
         cfs_size = None  #_Box doesn't let you check the size of a file (the attribute described in the docs doesn't exist)
-        files = _box.get_all_files(root)
+        files = _box.get_all_files(fs, root_id)
         file_system_info = _box.get_user(fs)
 
-        CloudFileSystem.__init__(self, 'Box', fs, root, cfs_size, files, file_system_info)
+        CloudFileSystem.__init__(self, 'Box', fs, root_id, cfs_size, files, file_system_info)
 
     def refresh_files(self):
-        self.files = _box.get_all_files(self.root)
+        self.files = _box.get_all_files(self.fs, self.root_id)
         self.file_system_info = _box.get_user(self.fs)
 
     def get_quota(self):
@@ -120,7 +120,7 @@ class _Box_FS(CloudFileSystem):
         return int(self.file_system_info.space_amount) - int(self.file_system_info.space_used)
 
     def upload_archives(self, directory):
-        _box.upload_archives(self.root, directory)
+        _box.upload_archives(self.root_id, directory)
         self.refresh_files()
 
     @download_cleanup
@@ -138,6 +138,7 @@ class _Box_FS(CloudFileSystem):
 
     def remove_all(self):
         _box.delete_all(self.files)
+        self.refresh_files()
 
 class DBox_FS(CloudFileSystem):
     def __init__(self):

@@ -1,8 +1,7 @@
 import os, shutil
-from file_systems import CloudFileSystem, GDrive_FS, PCloud_FS, DBox_FS
-from file_systems import file_size_display
+from file_systems import CloudFileSystem, PCloud_FS, GDrive_FS, DBox_FS, _Box_FS
 
-fs_classes = [['pCloud', PCloud_FS], ['Google Drive', GDrive_FS], ['Dropbox', DBox_FS]]
+fs_classes = [['pCloud', PCloud_FS], ['Google Drive', GDrive_FS], ['Dropbox', DBox_FS], ['Box (no drop)', _Box_FS]]
 
 def start():
     """Initializes all selected file system classes and returns list of objects to Main_FS object"""
@@ -68,6 +67,23 @@ def convert_dbox(current_files):
         converted_files.append(new)
     return converted_files
 
+def convert_box(current_files):
+    converted_files = []
+    for f in current_files:
+        new = {
+            'system type' : 'Box',
+            'filename' : f.name,
+            'id' : f.id,
+            'date' : None,  #information not returned via Box SDK (wtf)
+            'original name' : None,
+            'size' : 0,  #information not returned via Box SDK (wtf)
+            'trashed' : False,
+            'notes' : 'File size displayed is inaccurate due to problems using the Box API'
+            'original file' : f
+        }
+        converted_files.append(new)
+    return converted_files
+
 def convert_files(fs):
     if fs.type == 'Google Drive':
         converted = convert_gdrive(fs.files)
@@ -75,6 +91,8 @@ def convert_files(fs):
         converted = convert_pcloud(fs.files)
     elif fs.type == 'Dropbox':
         converted = convert_dbox(fs.files)
+    elif fs.type == 'Box':
+        converted = convert_box(fs.files)
     return converted
 
 try:
@@ -95,7 +113,7 @@ def scantree(directory):
     """Recursively yield DirEntry objects for given directory."""
     for entry in os.scandir(directory):
         if entry.is_dir(follow_symlinks=False):
-            yield from scantree(entry.path)  # see below for Python 2.x
+            yield from scantree(entry.path)
         else:
             yield entry
 
@@ -105,6 +123,15 @@ def get_folder_size(directory):
         if item.is_file():
             size += os.path.getsize(item.path)
     return size
+
+def file_size_display(size, precision):
+    """Displays human-readable file information, to [precision] decimal places"""
+    suffixes=['B','KiB','MiB','GiB','TiB', 'PiB']
+    suffixIndex = 0
+    while size > 1024 and suffixIndex < 5:
+        suffixIndex += 1
+        size = size/1024.0
+    return "%.*f%s"%(precision, size, suffixes[suffixIndex])
 
 
 class Main_FS(CloudFileSystem):
@@ -156,10 +183,15 @@ class Main_FS(CloudFileSystem):
             print("Your total free space is: ", self.file_system_info['available space'])
 
     def print_used_space(self, humanReadable=True, precision=2):
-        if humanReadable:
-            print("Your total space utilised by CFS_Manager is: ", file_size_display(self.cfs_size, precision))
+        if any(x.type == "Box" for x in self.fs):
+            note = '\nNB: Box does not return file size info, so the files stored there are not counted.'
         else:
-            print("Your total space utilised by CFS_Manager is: ", self.cfs_size)
+            note = ''
+
+        if humanReadable:
+            print("Your total space utilised by CFS_Manager is: ", file_size_display(self.cfs_size, precision), note)
+        else:
+            print("Your total space utilised by CFS_Manager is: ", self.cfs_size, note)
 
     def upload_archives(self, directory):
         for fs in self.fs:
