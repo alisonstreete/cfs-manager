@@ -13,15 +13,15 @@ Open Issues
 
 * Inability to store files of the same name
 
-* Autocomplete occasionally returns names missing their first letter(s)
+* Autocomplete occasionally returns names that are missing their first letter(s)
 
 
 *Performance Drains*
 --------------------
 
-* Zipping files is slower than optimal
-
 * Cloud systems must be accessed sequentially
+
+* Zipping files is slow. (According to cProfile, the slowest part of the package that isn't network-access.)
 
 
 Goals
@@ -30,15 +30,19 @@ Goals
 *Recurring*
 -----------
 
-* Documentation
+* Writing/editing documentation
+
+* Writing new unit tests *(please help!)*
 
 * Integrating more storage providers
 
-* Test on new Operating Systems
+* Test on new operating systems
 
 
 *Near-term Enhancements*
 ------------------------
+
+* Open cloud files on local machine
 
 * Migrating to a database using SQLAlchemy
 
@@ -54,13 +58,17 @@ Goals
 
 * Allow file encryption
 
-* Allow users to sign up for new storage providers
+* Create architecture for plugins
+
+* Enable users to sign up for new storage providers
 
 * Enable multi-user shared folder access
 
 
 *Stretch Goals*
 ---------------
+
+* Have network connections to each cloud run as concurrent processes
 
 * Programmatically determine the best deal on buying extra storage
 

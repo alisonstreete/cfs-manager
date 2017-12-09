@@ -2,11 +2,11 @@ import os, sys, webbrowser
 from dropbox import DropboxOAuth2FlowNoRedirect
 from pydrive.auth import GoogleAuth
 from boxsdk import OAuth2
-from box_wrapper import split_tokens
 
 sys.path.insert(0, os.path.split(os.path.abspath(__file__))[0])
 os.chdir(os.path.split(os.path.abspath(__file__))[0])
 from manager import fs_classes
+from box_wrapper import split_tokens
 
 def filesystem_list(fs_classes):
     print("\nSecondly, the system needs to know which cloud storage providers you use. \nDo you use...")
