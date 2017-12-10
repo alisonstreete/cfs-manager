@@ -1,5 +1,6 @@
 import os, shutil
 from file_systems import CloudFileSystem, PCloud_FS, GDrive_FS, DBox_FS, _Box_FS
+from file_systems import download_move
 
 fs_classes = [['pCloud', PCloud_FS], ['Google Drive', GDrive_FS], ['Dropbox', DBox_FS], ['Box (no drop)', _Box_FS]]
 
@@ -137,6 +138,7 @@ def file_size_display(size, precision):
 class Main_FS(CloudFileSystem):
     """The top-level file system abstraction which utilizes all other FSs"""
     def __init__(self):
+        self.cache = {}
         file_systems = start()
         files = get_all_files(file_systems)
         size = 0
@@ -225,7 +227,18 @@ class Main_FS(CloudFileSystem):
                 return sys
 
     def download_file(self, filename, destination_directory):
-        return self.get_cloud(filename+'.zip').download_file(filename+'.zip', destination_directory)
+        if filename in self.cache:
+            #If the file/folder was already downloaded, just copy the existing file/folder to the new destination
+            try:
+                new_file_location = os.path.join(destination_directory, filename)
+                download_move(filename, self.cache[filename], new_file_location)
+            except FileNotFoundError:  #If the file has been deleted from that location since then
+                new_file_location = self.get_cloud(filename+'.zip').download_file(filename+'.zip', destination_directory)
+                self.cache[filename] = new_file_location
+        else:
+            new_file_location = self.get_cloud(filename+'.zip').download_file(filename+'.zip', destination_directory)
+            self.cache[filename] = new_file_location
+        return new_file_location
 
     def inspect_file(self, filename):
         for f in self.files:

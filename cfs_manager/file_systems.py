@@ -13,6 +13,13 @@ try:
 except FileNotFoundError:
     dirs = ''
 
+def download_move(filename, abs_file_path, new_file_location):
+    if '.' in new_file_location:  #If it has a file extension
+        shutil.copyfile(abs_file_path, new_file_location)
+    else:  #If it's a folder
+        shutil.copytree(abs_file_path, new_file_location)
+    print("'"+filename.replace('.zip', '')+"'", "was downloaded.")
+
 def download_cleanup(decorated):
     """Cleans up after downloads by putting them in the right directory and removing unneeded files/directories
 
@@ -21,13 +28,8 @@ def download_cleanup(decorated):
     Deletes this download location as cleanup."""
     def wrapper(self, filename, destination_directory):
         abs_file_path, new_file_location = decorated(self, filename, destination_directory)
-        if '.' in new_file_location:
-            shutil.copyfile(abs_file_path, new_file_location)
-        else:
-            shutil.copytree(abs_file_path, new_file_location)
+        download_move(filename, abs_file_path, new_file_location)
         shutil.rmtree(os.path.split(abs_file_path)[0])  #Removes the swap directory where the file was extracted
-
-        print("'"+filename.replace('.zip', '')+"'", "was downloaded.")
         return new_file_location
     return wrapper
 
