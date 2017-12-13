@@ -246,30 +246,42 @@ def find_text(s):
     else:
         return s
 
-def main():
+def loop():
     """The main operational loop of the CLI"""
     fs = Main_FS()
     print()
     while True:
         cmd = input('(CFS_Manager) >>> ')
-
         if (cmd == '--quit') or (cmd == '-q'):
             break
-        elif cmd == '--commands':
-            list_commands_summary(fs)
-        elif (cmd == '--commands --verbose') or (cmd == '--commands -v'):
-            list_commands_long(fs)
-        elif 'xyzzy' in cmd.lower():
-            print("Nothing happens")
-
         else:
-            cmd = find_text(cmd)
-            if type(cmd) is list:
-                cmd = cmd[0].split()+[cmd[1]]+cmd[2].split()
-            else:
-                cmd = cmd.split()
-            evaluator(fs, cmd)
+            main(fs, cmd)
     print("Thank you for using CFS_Manager. Goodbye!\n")
 
+def once():
+    """For performing a single action from the shell w/o launching the CLI"""
+    fs = Main_FS()
+    del sys.argv[0]
+    cmd = ' '.join(sys.argv)
+    print()
+    main(fs, cmd)
+
+def main(fs, cmd):
+    """Evaluates a few basic commands; splits up others to be passed to the dedicated evaluator"""
+    if cmd == '--commands':
+        list_commands_summary(fs)
+    elif (cmd == '--commands --verbose') or (cmd == '--commands -v'):
+        list_commands_long(fs)
+    elif 'xyzzy' in cmd.lower():
+        print("Nothing happens")
+
+    else:
+        cmd = find_text(cmd)
+        if type(cmd) is list:
+            cmd = cmd[0].split()+[cmd[1]]+cmd[2].split()
+        else:
+            cmd = cmd.split()
+        evaluator(fs, cmd)
+
 if __name__ == "__main__":
-    main()
+    once()
