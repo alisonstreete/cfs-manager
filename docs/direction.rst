@@ -46,6 +46,8 @@ Goals
 
 * Migrating to a database using SQLAlchemy
 
+* Migrating to standard Python CLI libraries (eg, argparse)
+
 * When multiple files share a name, return list for user confirmation
 
 * Allow users to choose storage order

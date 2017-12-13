@@ -1,5 +1,5 @@
-Welcome to CFS_Manager's documentation!
-=======================================
+CFS_Manager documentation
+=========================
 
 **Contents**
 
@@ -8,6 +8,7 @@ Welcome to CFS_Manager's documentation!
 
     README
     about
+    features
     contributor notes
     direction
     license

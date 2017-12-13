@@ -7,6 +7,15 @@ Project General
 
 This project follows `Semantic Versioning <http://semver.org/>`_.
 As it is currently in 1.x, you can be confident that console commands that work now will keep working in other 1.x versions. As the internal API is not currently intended for out-of-app use, there may be breaking changes in minor versions. However, the internal API should remain stable through patch versions, and future releases that expose this API should fully stabilise it.
+
+Internal Design Policy
+======================
+
+CFS_Manager follows an internal interaction model where commands from the CLI call upon the top-level manager, which calls upon file-system-object abstractions of each storage provider. These file system objects then interface with the provider's API via a wrapper written to increase the interface similarity, from the internal perspective, between the different providers. Generally, the provider's official Python SDK sits between the in-house wrapper and the provider's API.
+
+It is designed to be easily extended with new service providers, and ensures this by providing a very specific interface for the implementation of new file system classes. All file systems inherit from the carefully described Cloud File System class, and their methods are called interchangably by the top-level manager.
+
+It anticipates lower variance as information cascades upward. Each wrapper is extremely ideosyncratic because it talks to an API with a unique design philosophy. However, they use similar functions to pass similar types of data to their file system object. The file system object manipulate this data with different internal logic, but passing the same results up to the manager. The manager accepts data in several formats, but collapses them all into a standardised format. And when the CLI displays data to the user or accepts their commands, that user should see no indication that the provider APIs are all wildly different.
     
 Comment Policy
 ==============
