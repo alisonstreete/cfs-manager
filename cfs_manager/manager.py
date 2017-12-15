@@ -236,8 +236,12 @@ class Main_FS(CloudFileSystem):
                 new_file_location = self.get_cloud(filename+'.zip').download_file(filename+'.zip', destination_directory)
                 self.cache[filename] = new_file_location
         else:
-            new_file_location = self.get_cloud(filename+'.zip').download_file(filename+'.zip', destination_directory)
-            self.cache[filename] = new_file_location
+            try:
+                new_file_location = self.get_cloud(filename+'.zip').download_file(filename+'.zip', destination_directory)
+                self.cache[filename] = new_file_location
+            except AttributeError:
+                #If it tries to subscript .download_file on Nonetype, it'll be excepted. Happens if the file isn't found.
+                new_file_location = None
         return new_file_location
 
     def inspect_file(self, filename):
