@@ -115,17 +115,20 @@ def download(fs, filename, option=None, destination=download_directory):
 
     Takes two arguments (one optional):
     -->The name of the file being downloaded
-    -->The local directory being downloaded to (on Windows, this defaults to Downloads)"""
+    -->The local directory being downloaded to"""
     if option and not option.startswith('-'):
         destination, option = option, None
         #In case the user gave a destination but not an option, the value will be reassigned to reflect this.
     if destination:
         if (option == '--complete') or (option == '-c'):
             filename = fs.name_complete(filename)
-        try:
-            fs.download_file(filename, destination)
-        except FileNotFoundError:
-            print("You may want to check your spelling, or the file you named may not currently exist.\n")
+        if filename:
+            try:
+                fs.download_file(filename, destination)
+            except FileNotFoundError:
+                print("You may want to check your spelling, or the file you named may not currently exist.\n")
+        else:
+            print("No file with that name could be found.")
     else:
         print("You haven't set a default download location, so you'll need to enter a location when using this command.\n")
 
@@ -284,4 +287,4 @@ def main(fs, cmd):
         evaluator(fs, cmd)
 
 if __name__ == "__main__":
-    once()
+    loop()
