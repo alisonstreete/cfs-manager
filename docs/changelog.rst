@@ -7,6 +7,19 @@ This is where all inter-version changes in the CFS_Manager project will be noted
 1.x Series
 ==========
 
+[Unreleased]
+------------
+
+*Performance Improvements*
+
+* Added rudimentary support for caching downloaded files to speed up repeated downloads
+
+*UI Improvements*
+
+* Support for calling one-off commands from the shell
+
+* Improved error messages for file downloads
+
 *1.2.0* - *2017-12-8*
 ---------------------
 

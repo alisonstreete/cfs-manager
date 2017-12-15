@@ -4,6 +4,8 @@ Features List
 
 This page is for cataloguing all the exciting features of CFS_Manager.
 
+`Planned future features are discussed here <direction.html>`_
+
 System Commands
 ===============
 

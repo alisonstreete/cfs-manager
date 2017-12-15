@@ -4,6 +4,8 @@ Project Direction
 
 There are many areas of the CFS_Manager project that are in need of development. If you'd like to tackle one of these areas, go ahead and make a pull request. If you'd like to add to this list, you can open an issue on GitHub. You can also contact Alison directly with any feedback or suggestions.
 
+`General contribution guidelines can be found here <contributor_notes.html>`_.
+
 
 Open Issues
 ===========

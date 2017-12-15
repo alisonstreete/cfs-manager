@@ -9,7 +9,8 @@ CFS_Manager documentation
     README
     about
     features
-    contributor notes
+    faq
+    contributor_notes
     direction
     license
     changelog

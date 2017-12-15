@@ -29,4 +29,8 @@ It is developed by Alison Streete, but welcomes anyone interested in contributin
 Questions? Bugs? Kudos? Confusion? Want to buy the developer a drink? Email her at alison.streete {@} gmail.com.
 *(If it's a bug, pull requests work too.)*
 
-See the *About CFS_Manager* page for more details.
+See the `About CFS_Manager <about.html>`_ page for more details.
+
+-------------------
+
+*CFS_Manager is released under the Apache 2.0 License, and the documentation is under the Creative Commons BY-SA 4.0 and the GFDL 1.3* `Click here to learn more about licensing <license.html>`_

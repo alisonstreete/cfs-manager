@@ -48,3 +48,7 @@ Throughout the console interfaces, an attempt was made to use American spelling 
 
 However, if you would like to contribute documentation, feel free to use either British or American conventions.
 A haphazard mix of inconsistent spelling choices will just make the project seem Canadian. /s
+
+-------------------
+
+*CFS_Manager is released under the Apache 2.0 License, and the documentation is under the Creative Commons BY-SA 4.0 and the GFDL 1.3* `Click here to learn more about licensing <license.html>`_
