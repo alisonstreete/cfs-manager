@@ -46,6 +46,8 @@ def dbox_setup(config):
         webbrowser.open(authorize_url)
         auth_code = input("Enter the authorization code here: ").strip().strip('"').strip("'").strip()
         config.write('Dropbox ::: '+auth_code+'\n')
+    else:
+        print("Dropbox setup cancelled")
 
 def gdrive_setup(config):
     print("""
@@ -59,6 +61,8 @@ def gdrive_setup(config):
         gauth.LocalWebserverAuth()
         gauth.SaveCredentialsFile("gdrive_credentials.txt")
         config.write('Google Drive\n')
+    else:
+        print("Google Drive setup cancelled")
 
 def _box_setup(config):
     print("""
@@ -75,6 +79,8 @@ def _box_setup(config):
         csrf_token, auth_code = split_tokens()
         access_token, refresh_token = oauth.authenticate(auth_code)
         config.write('Box (no drop) ::: '+ access_token +'<:>'+ refresh_token +'\n')
+    else:
+        print("Box setup cancelled")
 
 def setup_switch(fs, config):
     if fs == 'pCloud':
