@@ -5,6 +5,12 @@ F.A.Q
 Interface
 =========
 
+**How do I get CFS_Manager**
+
+The process for installing CFS_Manager with pip is `explained in the README <README#installation.html>`_.
+
+If you don't yet have Python and pip, `you can get the most recent version of Python here <https://www.python.org/downloads/>`_. You should get whatever the most recent 3.x.x release is. Once you have that, pip should come pre-installed, and you'll be good to go.
+
 **How does file name autocompletion work?**
 
 To autocomplete a file name, you need to write out the command you want to use and the beginning of the file name. After the partial file name, you should add the '-c' modifier. Make sure there's a space between the partial filename and '-c'!
@@ -59,3 +65,7 @@ Notably, the interface here refers to the command line interface. Anything that 
 At the moment, your best bets are either creating an issue on GitHub or emailing Alison directly. Then you can share your ideas, suggest new features, and figure out what sub-problems to work on.
 
 If you want to learn more about the general guidelines around contributions, please read the `Contributor Notes <contributor_notes.html>`_. If you want a problem to tackle *right now*, please check out the `Project Direction <direction.html>`_ page. It has a list of open problems and goals for the project, and if you tackle one of them the project will be forever grateful.
+
+**Is there a standard release schedule?**
+
+Nope! New releases are made when new features, bug fixes, and general improvements have been made and vetted.
