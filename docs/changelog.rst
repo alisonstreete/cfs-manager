@@ -18,9 +18,11 @@ This is where all inter-version changes in the CFS_Manager project will be noted
 
 * Added rudimentary support for caching downloaded files to speed up repeated downloads
 
-*UI Improvements*
+*New Functionality*
 
 * Support for calling one-off commands from the shell
+
+*UI Improvements*
 
 * Improved error messages for file downloads
 
