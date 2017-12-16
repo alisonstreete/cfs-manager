@@ -7,8 +7,12 @@ This is where all inter-version changes in the CFS_Manager project will be noted
 1.x Series
 ==========
 
-[Unreleased]
-------------
+**1.3.0** - *2017-12-15*
+------------------------
+
+*Bugfixes*
+
+* No longer crashes from attempts to download non-existent files.
 
 *Performance Improvements*
 
@@ -20,8 +24,8 @@ This is where all inter-version changes in the CFS_Manager project will be noted
 
 * Improved error messages for file downloads
 
-*1.2.0* - *2017-12-8*
----------------------
+**1.2.0** - *2017-12-8*
+-----------------------
 
 *New Functionality*
 
