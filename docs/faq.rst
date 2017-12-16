@@ -2,14 +2,52 @@
 F.A.Q
 *****
 
-Interface
-=========
+Getting Started
+===============
 
-**How do I get CFS_Manager**
+**How do I get CFS_Manager?**
 
-The process for installing CFS_Manager with pip is `explained in the README <README#installation.html>`_.
+The process for installing CFS_Manager with pip is `explained in the README <README.html#installation>`_. After that, just open your terminal/shell/command prompt and run ``cfs-config``. The configuration flow will walk you through the rest.
 
 If you don't yet have Python and pip, `you can get the most recent version of Python here <https://www.python.org/downloads/>`_. You should get whatever the most recent 3.x.x release is. Once you have that, pip should come pre-installed, and you'll be good to go.
+
+**When I run 'cfsm' I get an error saying there's no 'system_config.txt'. What do I do?**
+
+This means that your cloud file system hasn't been configured yet. This is important because, without configuration, how can CFS_Manager know what cloud storage accounts to connect to? To fix this, you just need to run ``cfs-config`` the same way you'd run ``cfsm``. Then the configuration dialogue should walk you through exactly what you need to do.
+
+**Do I need to run cfs-config again after upgrading versions?**
+
+If you upgrade from one version of CFS_Manager to another, you shouldn't have to re-do configuration. All of your settings are saved during the upgrade process, so you should be able to jump right back into your workflow without a second thought!
+
+The only times you might need to run ``cfs-config`` again are if you want *different* settings (eg: a new default download location) or if CFS_Manager has added support for a new storage provider and you want to hook up that account.
+
+**What's the difference between 'cfsm' and 'cfs-do?'**
+
+The ``cfsm`` shell command launches the CFS_Manager command line. It transfers you from your operating system's console interface to one that only talks to your cloud management system. After running it, connections to your cloud accounts will be initialised and you'll be able to issue as many commands as you want, line by line.
+
+``cfs-do`` also let's you talk to the cloud manager, but it doesn't launch the command line dialogue. Instead, it lets you issue individual, one-off commands without breaking your workflow. You can just write ``cfs-do --download example_doc.txt`` to download something without having to first enter the CLI to give the '--download' command.
+
+File Management
+===============
+
+**How do managed directories work?**
+
+The managed directories are all the folders that CFS_Manager has been explicitly told about. If you use '--upload-all', the application will upload all your files from each of those folders.
+
+If you want to add a folder to this list, there are multiple options. One is to navigate to the relevant directory in your shell and then run the ``cfs-watch`` command. A more graphical way to do this would be to drag-and-drop a copy of the cfs-watcher.py file from the cfs_manager directory into the one you want to manage, and then run that file. Finally, you can directly edit the managed.txt file in the cfs_manager directory to add a new folder to the list.
+
+**What is a zipper.ignore file?**
+
+If you use an automatic method to add a managed directory, this will create a 'zipper.ignore' file. What this does is list all the files and directories that cfs_manager shouldn't upload. This tells the 'zipper' module, which compresses all the files for upload, that it should ignore everything in that list. 'zipper.ignore' is a regular text file, so you can add things to it if you want.
+
+If you have a 'zipper.ignore' file in any directory, then cfs_manager will ignore the files it lists, regardless of what upload method you use. Whether you use '--upload-all' or '--upload [directory name]'; whether the folder is in your managed.txt or not. You can create one yourself and put it anywhere and it'll work the same.
+
+**Can I drag files into the CFS_Manager folder to manage them?**
+
+As of 1.2.x, this functionality is unsupported. Please check back here in case we get a chance to add it.
+
+Interface
+=========
 
 **How does file name autocompletion work?**
 
@@ -28,22 +66,6 @@ If you use the '--help' command, either on its own (to get the system-level help
 But what happens if that isn't enough information? You know what a command does, but not exactly what information you have to give for that command to do it's job? ("Do I give it a file name? A file path? How many arguments do I feed it?...") Or what if you want the more detailed explain-like-I'm-five help file? In that case, you should follow the '--help' command with the '--verbose' flag. Then you'll get the much wordier version. (If that *still* isn't enough, you can always use '--docs' to get to the documentation.)
 
 Also, if you use '--verbose' after '--commands', you'll get the long-form description of *every* command. Which will probably take up your screen, but at least you'll have *all* the info.
-
-**How do managed directories work?**
-
-The managed directories are all the folders that CFS_Manager has been explicitly told about. If you use '--upload-all', the application will upload all your files from each of those folders.
-
-If you want to add a folder to this list, there are multiple options. One is to navigate to the relevant directory in your shell and then run the ``cfs-watch`` command. A more graphical way to do this would be to drag-and-drop a copy of the cfs-watcher.py file from the cfs_manager directory into the one you want to manage, and then run that file. Finally, you can directly edit the managed.txt file in the cfs_manager directory to add a new folder to the list.
-
-**What is a zipper.ignore file?**
-
-If you use an automatic method to add a managed directory, this will create a 'zipper.ignore' file. What this does is list all the files and directories that cfs_manager shouldn't upload. This tells the 'zipper' module, which compresses all the files for upload, that it should ignore everything in that list. 'zipper.ignore' is a regular text file, so you can add things to it if you want.
-
-If you have a 'zipper.ignore' file in any directory, then cfs_manager will ignore the files it lists, regardless of what upload method you use. Whether you use '--upload-all' or '--upload [directory name]'; whether the folder is in your managed.txt or not. You can create one yourself and put it anywhere and it'll work the same.
-
-**Can I drag files into the CFS_Manager folder to manage them?**
-
-As of 1.2.x, this functionality is unsupported. Please check back here in case we get a chance to add it.
 
 Development
 ===========
