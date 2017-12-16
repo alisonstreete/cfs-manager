@@ -58,10 +58,10 @@ def inspect_file(fs, filename, option=None):
     if (option == '--complete') or (option == '-c'):
         filename = fs.name_complete(filename)
     info = fs.inspect_file(filename)
+    del info[-1]  #Removes the 'original file' item at the end
     try:
         for statement in info:
-            if 'original file' not in statement:  #Avoids printing the stored copy of the original file
-                print(statement)
+            print(statement)
     except FileNotFoundError:
         print("You may want to check your spelling, or the file you named may not currently exist.\n")
     else:

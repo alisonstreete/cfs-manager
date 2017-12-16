@@ -5,7 +5,7 @@ def readme():
         return f.read()
 
 setup(name="CFS_Manager",
-    version='1.2.1a',
+    version='1.3.0',
     description="A virtual filesystem for accessing storage on multiple cloud services.",
     long_description=readme(),
     classifiers=[
@@ -36,7 +36,6 @@ setup(name="CFS_Manager",
       cfs_manager=cfs_manager.cli:loop
       cfs-manager=cfs_manager.cli:loop
       cfsm=cfs_manager.cli:loop
-
       cfs-do=cfs_manager.cli:once
       cfs-watch=cfs_manager.cfs_watcher:main
       cfs-config=cfs_manager.configuration:main
