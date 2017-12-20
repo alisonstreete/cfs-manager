@@ -1,7 +1,5 @@
 import re, os, sys, shutil
 sys.path.insert(0, os.path.split(os.path.abspath(__file__))[0])  #Set the sys path to the current dir before importing local packages
-os.chdir(os.path.split(os.path.abspath(__file__))[0])  #Set the working dir to the current dir before importing local packages
-
 from help_functions import *  # * import because help_functions is explicitly designed not to overload the namespace
 from manager import Main_FS
 

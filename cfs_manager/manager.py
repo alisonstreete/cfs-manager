@@ -1,4 +1,5 @@
-import os, shutil
+import os, sys, shutil
+os.chdir(os.path.split(os.path.abspath(__file__))[0])  #Set the working dir to the current dir before importing local packages
 from file_systems import CloudFileSystem, PCloud_FS, GDrive_FS, DBox_FS, _Box_FS
 from file_systems import download_move
 
