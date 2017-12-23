@@ -1,4 +1,4 @@
-import os, sys, shutil
+import os, shutil
 from file_systems import CloudFileSystem, PCloud_FS, GDrive_FS, DBox_FS, _Box_FS
 from file_systems import download_move
 
