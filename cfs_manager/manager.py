@@ -1,5 +1,4 @@
-import os, sys, shutil
-os.chdir(os.path.split(os.path.abspath(__file__))[0])  #Set the working dir to the current dir before importing local packages
+import os, shutil
 from file_systems import CloudFileSystem, PCloud_FS, GDrive_FS, DBox_FS, _Box_FS
 from file_systems import download_move
 
@@ -245,11 +244,13 @@ class Main_FS(CloudFileSystem):
                 new_file_location = None
         return new_file_location
 
-    def inspect_file(self, filename):
+    def inspect_file(self, filename, return_dict=False):
         for f in self.files:
             if f['filename'] == filename+'.zip':
                 file_dict = f
                 break
+        if return_dict:
+            return file_dict
         info = []
         for key in file_dict:
             statement = str(key) +" :  "+ str(file_dict[key])
